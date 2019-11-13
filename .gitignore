@@ -1,0 +1,8 @@
+/images/
+/imgcache/
+/css/
+/node_modules/
+/js/
+.DS_Store
+Thumbs.db
+.*.swp

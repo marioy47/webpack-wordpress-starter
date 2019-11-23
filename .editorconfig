@@ -13,6 +13,7 @@ max_line_length = off
 [php]
 indent_style = tab
 indent_size = 4
+end_of_line = crlf
 
 
 [CHANGELOG.md]

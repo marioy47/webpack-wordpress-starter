@@ -1,25 +1,22 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
+// webpack.config.js
+const path = require("path")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: {
-    frontend: './src/js/frontend.js',
-    admin: './src/js/admin.js'
+    frontend: "./src/js/frontend.js",
+    admin: "./src/js/admin.js",
   },
   output: {
-    filename: '[name].min.js',
-    path: path.resolve(__dirname, 'js')
+    filename: "[name].js",
+    path: path.resolve(__dirname, "js"),
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        use: 'babel-loader',
-        exclude: '/node_modules/'
+        exclude: /node_modules/,
+        loader: "babel-loader",
       },
       {
         test: /\.(sa|sc|c)ss$/,
@@ -36,37 +33,34 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|jpg|jpeg|gif)$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            outputPath: '../images/',
-            name: '[name].[ext]'
-          }
-        }
-      }
-    ]
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              name: '[name].[ext]',
+              outputPath: '../images'
+            }
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              disable: process.env.NODE_ENV == 'development',
+              mozjpeg: { quality: 50 },
+              pngquant: { quality: [0.50, 0.70] }
+            }
+          },
+        ]
+      },
+    ],
   },
   plugins: [
-    new CleanWebpackPlugin({
-      verbose: true,
-    }),
     new MiniCssExtractPlugin({
       filename: '../css/[name].min.css', // Relative to output path.
       chunkFilename: '[id].css',
     }),
-    new CopyWebpackPlugin([{
-      from: 'src/images/', to: '../images/'
-    }]),
-    new ImageminPlugin({
-      disable: process.env.NODE_ENV !== 'production', // Disable during development
-      pngquant: {
-        quality: '95-100'
-      },
-      cacheFolder: './imgcache',
-    })
   ]
 }
-
 
 // vim: ts=2 sw=2 et

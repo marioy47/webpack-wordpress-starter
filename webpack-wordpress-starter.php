@@ -38,7 +38,8 @@ define( 'WORDPRESS_WEBPACK_STARTER_VERSION', '1.0.0' );
  * Enqueue the JavaScripts in the Frontend.
  */
 function webpack_enqueue_scripts() {
-    wp_enqueue_script( 'webpack-script-frontend', plugins_url( 'js/frontend.js', __FILE__ ), array(), WORDPRESS_WEBPACK_STARTER_VERSION );
+	wp_enqueue_script( 'webpack-script-frontend', plugins_url( 'js/frontend.js', __FILE__ ), array(), WORDPRESS_WEBPACK_STARTER_VERSION );
+	wp_enqueue_style( 'webpack-style-frontend', plugins_url( 'css/frontend.min.css', __FILE__ ), WORDPRESS_WEBPACK_STARTER_VERSION );
 }
 add_action( 'wp_enqueue_scripts', 'webpack_enqueue_scripts' );
 
@@ -46,7 +47,7 @@ add_action( 'wp_enqueue_scripts', 'webpack_enqueue_scripts' );
  * Enqueue scritps in the Dashboard.
  */
 function admin_webpack_enqueue_scripts() {
-    wp_enqueue_script( 'webpack-script-admin', plugins_url( 'js/admin.js', __FILE__ ), array(), WORDPRESS_WEBPACK_STARTER_VERSION );
+	wp_enqueue_script( 'webpack-script-admin', plugins_url( 'js/admin.js', __FILE__ ), array(), WORDPRESS_WEBPACK_STARTER_VERSION );
 }
 add_action( 'admin_enqueue_scripts', 'admin_webpack_enqueue_scripts' );
 

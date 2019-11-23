@@ -28,7 +28,18 @@ module.exports = {
             }
           },
           'css-loader',
-          'postcss-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              map: false,
+              plugins: (loader) => [
+                require('postcss-import')({ root: loader.resourcePath }),
+                require('pixrem')(),
+                require('autoprefixer')(),
+                require('cssnano')()
+              ]
+            }
+          },
           'sass-loader' // loading order is inverse
         ]
       },

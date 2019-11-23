@@ -30,14 +30,5 @@
     "url-loader": "^2.3.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
-  },
-  "postcss": {
-    "map": false,
-    "plugins": {
-      "cssnano": {},
-      "autoprefixer": {},
-      "pixrem": {},
-      "postcss-import": {}
-    }
   }
 }
